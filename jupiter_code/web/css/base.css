@@ -2,6 +2,20 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Make the `hidden` attribute authoritative.
+ *
+ * The browser's rule for it is `[hidden] { display: none }` in the UA
+ * stylesheet, which loses to ANY author `display` on the same element. This
+ * frontend toggles visibility with `hidden` throughout, and many of those
+ * elements set their own display (.shell-setup and .shell-app are flex, as are
+ * .badge, .chip, .banner, .stepper, .tag-you, .row-overlap) - so without this,
+ * they stay on screen while the code believes them hidden. That is how the
+ * onboarding shell and the dashboard ended up rendering stacked.
+ *
+ * Note: jsdom does not reproduce this cascade - it honours the attribute
+ * regardless - so no amount of jsdom testing catches it. Only a browser does. */
+[hidden] { display: none !important; }
+
 html, body { height: 100%; }
 
 body {

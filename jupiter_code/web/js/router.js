@@ -63,7 +63,12 @@ async function handle() {
   $("shell-setup").hidden = !isSetup;
   $("shell-app").hidden = isSetup;
 
+  // Empty the shell we are leaving as well as the one we are entering.
+  // Otherwise the last wizard panel stays in the DOM - invisible while the
+  // shell is hidden, but still holding listeners, and on screen the moment
+  // anything makes that shell visible again.
   const host = isSetup ? $("setup-view") : $("app-view");
+  clear(isSetup ? $("app-view") : $("setup-view"));
   clear(host);
 
   const teardown = await route.mount(host, query());
