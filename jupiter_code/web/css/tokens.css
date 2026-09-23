@@ -1,0 +1,94 @@
+/* Design tokens.
+ *
+ * Colour roles come from a validated palette: one blue sequential ramp for
+ * magnitude (expiry meters, trend lines) and the reserved four-role status
+ * palette for state. Status hexes are fixed and never themed; only the
+ * surfaces and ink swap between modes.
+ *
+ * Dark is a separately chosen set stepped for the dark surface, not an
+ * inversion of light. Declared under two scopes: the media query follows the
+ * OS, the attribute follows the in-app toggle, and the toggle wins either way.
+ */
+
+:root {
+  color-scheme: light;
+
+  --page:            #f9f9f7;
+  --surface-1:       #fcfcfb;
+  --surface-2:       #f0efec;
+  --surface-3:       #e8e7e2;
+  --text-primary:    #0b0b0b;
+  --text-secondary:  #52514e;
+  --text-muted:      #898781;
+  --grid:            #e1e0d9;
+  --baseline:        #c3c2b7;
+  --border:          rgba(11, 11, 11, .10);
+  --shadow-1:        0 1px 2px rgba(11, 11, 11, .05);
+  --shadow-2:        0 1px 2px rgba(11, 11, 11, .05), 0 8px 24px rgba(11, 11, 11, .06);
+  --shadow-3:        0 2px 4px rgba(11, 11, 11, .06), 0 18px 48px rgba(11, 11, 11, .10);
+
+  /* sequential ramp: blue, light -> dark */
+  --accent:          #2a78d6;
+  --accent-strong:   #1c5cab;
+  --accent-quiet:    #86b6ef;
+  --accent-wash:     #cde2fb;
+
+  /* status palette - fixed in both modes, never themed */
+  --good:            #0ca30c;
+  --warning:         #fab219;
+  --critical:        #d03b3b;
+
+  --radius:   12px;
+  --radius-s: 7px;
+  --radius-l: 18px;
+
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --topbar-h: 54px;
+  --sidebar-w: 216px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page:           #0d0d0d;
+    --surface-1:      #1a1a19;
+    --surface-2:      #212120;
+    --surface-3:      #2a2a28;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255, 255, 255, .10);
+    --shadow-1:       0 1px 2px rgba(0, 0, 0, .4);
+    --shadow-2:       0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .34);
+    --shadow-3:       0 2px 4px rgba(0, 0, 0, .5), 0 18px 48px rgba(0, 0, 0, .45);
+    --accent:         #3987e5;
+    --accent-strong:  #6da7ec;
+    --accent-quiet:   #184f95;
+    --accent-wash:    #0d366b;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page:           #0d0d0d;
+  --surface-1:      #1a1a19;
+  --surface-2:      #212120;
+  --surface-3:      #2a2a28;
+  --text-primary:   #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted:     #898781;
+  --grid:           #2c2c2a;
+  --baseline:       #383835;
+  --border:         rgba(255, 255, 255, .10);
+  --shadow-1:       0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-2:       0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .34);
+  --shadow-3:       0 2px 4px rgba(0, 0, 0, .5), 0 18px 48px rgba(0, 0, 0, .45);
+  --accent:         #3987e5;
+  --accent-strong:  #6da7ec;
+  --accent-quiet:   #184f95;
+  --accent-wash:    #0d366b;
+}

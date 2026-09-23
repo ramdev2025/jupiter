@@ -1,0 +1,61 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jupiter",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+
+  "containers": [
+    {
+      "class_name": "JupiterContainer",
+      "image": "./Dockerfile",
+      // 1/2 vCPU. Worth noting: every authenticated request costs a bcrypt
+      // verify (~0.5s on a laptop core), so CPU here sets the request floor.
+      // See docs/deploy-cloudflare.md if the dashboard feels sluggish.
+      "instance_type": "standard-1",
+      // Routing pins one named instance, so only one runs; the headroom is
+      // for rolling deploys, which overlap old and new versions.
+      "max_instances": 2
+    }
+  ],
+
+  // Containers are container-enabled Durable Objects, so both a binding and
+  // a migration are required.
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "JUPITER",
+        "class_name": "JupiterContainer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["JupiterContainer"]
+    }
+  ],
+
+  // Stated explicitly rather than defaulted, so deploys stop warning about it.
+  // workers.dev stays on as an off-network fallback for testing.
+  "workers_dev": true,
+  "preview_urls": false,
+
+  // Primary hostname. Corporate filters commonly block *.workers.dev outright
+  // under a "Web Hosting" category; a domain you own is categorised on its own
+  // merits and can be allowlisted. See docs/deploy-cloudflare.md.
+  "routes": [
+    { "pattern": "jupiter.mythify.dev", "custom_domain": true }
+  ],
+
+  "observability": {
+    "enabled": true
+  },
+
+  // Non-secret configuration only. DATABASE_URL and JUPITER_LLM_API_KEY are
+  // secrets - set them with `wrangler secret put`, never here.
+  "vars": {
+    "JUPITER_LOCK_TTL": "300",
+    "JUPITER_LLM_MODEL": "deepseek-v4-pro-0813",
+    "JUPITER_LLM_BASE_URL": "https://model-iq.aicore.accenture.com/v1"
+  }
+}

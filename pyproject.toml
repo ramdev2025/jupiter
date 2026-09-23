@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jupiter-code"
+version = "0.1.0"
+description = "Team coding awareness for Claude Code: see which files your teammates' agents are touching."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Jupiter contributors" }]
+keywords = ["mcp", "claude", "claude-code", "collaboration", "developer-tools"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Version Control",
+]
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+  "sqlalchemy>=2.0",
+  "mcp>=2.2",
+  "click>=8.1",
+  "httpx>=0.27",
+  "passlib[bcrypt]>=1.7.4",
+  "bcrypt>=4.0,<5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+# SQLite needs no driver; PostgreSQL does. Install with: pip install '.[postgres]'
+postgres = ["psycopg[binary]>=3.1"]
+
+[project.scripts]
+jupiter-server = "jupiter_code.__main__:main"
+jupiter-mcp = "jupiter_code.mcp_server:main"
+
+[project.urls]
+Homepage = "https://github.com/your-org/jupiter-code"
+Issues = "https://github.com/your-org/jupiter-code/issues"
+
+[tool.setuptools]
+packages = ["jupiter_code"]
+
+[tool.setuptools.package-data]
+# The dashboard is served by the server itself, so its assets must ship
+# inside the wheel alongside the Python modules.
+jupiter_code = [
+  "web/*.html",
+  "web/css/*.css",
+  "web/js/*.js",
+  "web/js/pages/*.js",
+]

@@ -1,0 +1,60 @@
+name: Deploy to Cloudflare
+
+# Builds the container image and deploys the Worker.
+#
+# The point of doing this in CI: `wrangler deploy` needs a Docker engine to
+# build the container image, and GitHub's ubuntu runners have one. That removes
+# the need for Docker on any developer machine.
+#
+# The Worker's own secrets (DATABASE_URL, JUPITER_LLM_API_KEY) are already set
+# in Cloudflare and are not touched by a deploy, so they never need to be
+# copied into GitHub.
+
+on:
+  push:
+    branches: [main]
+    # Docs-only edits should not rebuild and roll out a container image.
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+  workflow_dispatch:
+
+concurrency:
+  # Container rollouts are gradual; overlapping deploys would fight each other.
+  group: deploy-cloudflare
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install tooling
+        run: npm ci
+
+      - name: Type-check the Worker
+        run: npx tsc --noEmit
+
+      - name: Confirm a Docker engine is present
+        run: docker version --format '{{.Server.Version}}'
+
+      - name: Deploy Worker and container
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Show what is live
+        if: success()
+        run: npx wrangler deployments list --name jupiter | head -n 20
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

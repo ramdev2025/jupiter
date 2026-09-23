@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+.venv/
+venv/
+env/
+
+# Secrets. `env/` above only matches the virtualenv directory, not these.
+.env
+.env.*
+!.env.example
+
+*.db
+*.db-wal
+*.db-shm
+.jupiter/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Cloudflare / node tooling for the deployment.
+# package-lock.json is deliberately committed: CI runs `npm ci`, which requires it.
+node_modules/
+.wrangler/
+
+.idea/
+.vscode/
+.DS_Store

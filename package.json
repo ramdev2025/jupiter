@@ -1,0 +1,20 @@
+{
+  "name": "jupiter-deploy",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Workers + Containers deployment for the Jupiter server",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260921.1",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.136.2"
+  },
+  "dependencies": {
+    "@cloudflare/containers": "^0.3.7"
+  }
+}

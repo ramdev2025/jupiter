@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Jupiter</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231a1a19'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%233987e5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/shell.css">
+<link rel="stylesheet" href="css/components.css">
+<script>
+  // Stamp the theme before first paint so there is no flash. Dark is default.
+  document.documentElement.dataset.theme =
+    localStorage.getItem("jupiter.theme") || "dark";
+</script>
+</head>
+<body>
+
+<!-- ===================================================================== -->
+<!-- Onboarding shell - centred, no chrome. Pages render into #setup-view. -->
+<!-- ===================================================================== -->
+<div id="shell-setup" class="shell-setup" hidden>
+  <div class="setup-frame">
+    <header class="setup-head">
+      <a class="brand" href="#/welcome">
+        <span class="brand-dot" aria-hidden="true"></span>Jupiter
+      </a>
+      <button class="ghost" id="setup-theme" title="Toggle light / dark">Theme</button>
+    </header>
+
+    <ol class="stepper" id="stepper" aria-label="Setup progress" hidden></ol>
+
+    <main id="setup-view" class="setup-view" tabindex="-1"></main>
+  </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- App shell - topbar + sidebar. Pages render into #app-view.            -->
+<!-- ===================================================================== -->
+<div id="shell-app" class="shell-app" hidden>
+
+  <header class="topbar">
+    <button class="ghost icon only-narrow" id="btn-nav" aria-label="Toggle navigation"
+            aria-expanded="false">&#9776;</button>
+
+    <a class="brand" href="#/overview">
+      <span class="brand-dot" aria-hidden="true"></span>Jupiter
+    </a>
+
+    <span class="chip" id="chip-org" title="Team"></span>
+
+    <span class="spacer"></span>
+
+    <span class="chip live" id="chip-live">
+      <span class="pulse" aria-hidden="true"></span><span id="live-text">connecting…</span>
+    </span>
+    <button class="ghost" id="btn-pause" aria-pressed="false"
+            title="Pause / resume polling">Pause</button>
+    <button class="ghost" id="btn-theme" title="Toggle light / dark">Theme</button>
+    <span class="chip who" id="chip-me"></span>
+  </header>
+
+  <div class="body">
+    <nav class="sidebar" id="sidebar" aria-label="Sections">
+      <a href="#/overview" data-nav="overview">
+        <span class="ico" aria-hidden="true">&#9633;</span>
+        <span class="label">Overview</span>
+      </a>
+      <a href="#/files" data-nav="files">
+        <span class="ico" aria-hidden="true">&#9670;</span>
+        <span class="label">Files</span>
+        <span class="nav-badge" id="nav-badge-files" hidden></span>
+      </a>
+      <a href="#/team" data-nav="team">
+        <span class="ico" aria-hidden="true">&#9679;</span>
+        <span class="label">Team</span>
+        <span class="nav-count" id="nav-count-team"></span>
+      </a>
+      <a href="#/activity" data-nav="activity">
+        <span class="ico" aria-hidden="true">&#9650;</span>
+        <span class="label">Activity</span>
+      </a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="#/settings" data-nav="settings">
+        <span class="ico" aria-hidden="true">&#9881;</span>
+        <span class="label">Settings</span>
+      </a>
+
+      <div class="sidebar-foot">
+        <span class="muted" id="foot-version"></span>
+        <a href="/docs" target="_blank" rel="noopener">API docs</a>
+      </div>
+    </nav>
+
+    <main id="app-view" class="app-view" tabindex="-1"></main>
+  </div>
+</div>
+
+<div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
+<div id="tip" class="tip" role="tooltip" hidden></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+/* The two shells: the centred onboarding frame and the app's topbar+sidebar. */
+
+/* ---- brand ---------------------------------------------------------- */
+
+.brand {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-weight: 600; letter-spacing: -.015em;
+  color: var(--text-primary);
+}
+.brand:hover { text-decoration: none; }
+.brand-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
+  flex: 0 0 auto;
+}
+
+/* ===================================================================== */
+/* onboarding shell                                                      */
+/* ===================================================================== */
+
+.shell-setup { min-height: 100%; display: flex; justify-content: center; padding: 28px 20px 56px; }
+
+/* A soft wash behind the wizard, from the accent ramp. */
+.shell-setup::before {
+  content: "";
+  position: fixed; inset: 0 0 auto 0; height: 340px; z-index: -1;
+  background: radial-gradient(ellipse 120% 100% at 50% 0%,
+              color-mix(in oklab, var(--accent) 13%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+.setup-frame { width: 100%; max-width: 640px; }
+
+.setup-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.setup-view:focus-visible { outline: none; }
+
+/* stepper */
+.stepper {
+  display: flex; align-items: center; gap: 0;
+  margin: 0 0 26px;
+  counter-reset: step;
+}
+.stepper li {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 12.5px; color: var(--text-muted);
+  white-space: nowrap;
+}
+.stepper li:not(:last-child)::after {
+  content: ""; width: 100%; min-width: 14px; height: 1px;
+  margin: 0 10px;
+  background: var(--baseline);
+}
+.stepper li { flex: 1 1 auto; }
+.stepper li:last-child { flex: 0 0 auto; }
+.stepper .num {
+  display: grid; place-items: center;
+  width: 22px; height: 22px; flex: 0 0 auto;
+  font-size: 11.5px; font-weight: 600;
+  border: 1px solid var(--baseline);
+  border-radius: 50%;
+  background: var(--surface-1);
+}
+.stepper li[data-state="done"] { color: var(--text-secondary); }
+.stepper li[data-state="done"] .num {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+.stepper li[data-state="current"] { color: var(--text-primary); font-weight: 600; }
+.stepper li[data-state="current"] .num {
+  border-color: var(--accent); color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
+}
+
+@media (max-width: 620px) {
+  .stepper .step-label { display: none; }
+  .stepper li:not(:last-child)::after { margin: 0 6px; }
+}
+
+/* the card each wizard step renders into */
+.panel {
+  padding: 28px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-2);
+}
+.panel-head { margin-bottom: 22px; }
+.panel-head h1 { font-size: 24px; }
+.panel-head h2 { font-size: 20px; }
+.panel-head p { margin-top: 8px; color: var(--text-secondary); font-size: 14px; }
+.panel-foot {
+  /* stretch, not center: equalises the height of differently-sized button
+   * variants sitting side by side (see .btn-row in base.css) */
+  display: flex; align-items: stretch; gap: 10px; flex-wrap: wrap;
+  margin-top: 26px; padding-top: 20px;
+  border-top: 1px solid var(--grid);
+}
+.panel-foot > .spacer { align-self: center; }
+.panel-foot .spacer { flex: 1 1 auto; }
+
+.form-grid { display: flex; flex-direction: column; gap: 16px; }
+
+/* welcome hero */
+.hero { text-align: center; padding: 8px 0 4px; }
+.hero h1 { font-size: 32px; line-height: 1.2; }
+.hero .tagline {
+  margin: 12px auto 0; max-width: 460px;
+  font-size: 15px; color: var(--text-secondary);
+}
+
+.feature-list { display: flex; flex-direction: column; gap: 14px; margin: 26px 0 0; text-align: left; }
+.feature-list li { display: flex; gap: 13px; align-items: flex-start; }
+.feature-list .fico {
+  display: grid; place-items: center;
+  width: 30px; height: 30px; flex: 0 0 auto;
+  font-size: 14px;
+  border-radius: 9px;
+  background: color-mix(in oklab, var(--accent) 14%, var(--surface-1));
+  color: var(--accent);
+}
+.feature-list strong { display: block; font-size: 13.5px; }
+.feature-list span.fdesc { font-size: 13px; color: var(--text-secondary); }
+
+/* the two big choices on the "create or join" step */
+.choice-grid { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .choice-grid { grid-template-columns: 1fr; } }
+
+.choice {
+  display: flex; flex-direction: column; gap: 7px;
+  padding: 18px;
+  text-align: left;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  transition: border-color .12s ease, background .12s ease, transform .12s ease;
+}
+.choice:hover {
+  background: var(--surface-1);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.choice .cico { font-size: 19px; color: var(--accent); }
+.choice strong { font-size: 14.5px; }
+.choice span.cdesc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.45; }
+
+/* ===================================================================== */
+/* app shell                                                             */
+/* ===================================================================== */
+
+.shell-app { display: flex; flex-direction: column; min-height: 100%; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; gap: 10px;
+  height: var(--topbar-h);
+  padding: 0 16px;
+  background: color-mix(in oklab, var(--surface-1) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.body { display: flex; flex: 1 1 auto; min-height: 0; }
+
+.sidebar {
+  position: sticky; top: var(--topbar-h);
+  align-self: flex-start;
+  display: flex; flex-direction: column; gap: 2px;
+  width: var(--sidebar-w); flex: 0 0 var(--sidebar-w);
+  height: calc(100vh - var(--topbar-h));
+  padding: 14px 10px;
+  border-right: 1px solid var(--border);
+  background: var(--surface-1);
+}
+.sidebar a[data-nav] {
+  display: flex; align-items: center; gap: 11px;
+  padding: 8px 11px;
+  font-size: 13.5px;
+  border-radius: var(--radius-s);
+  color: var(--text-secondary);
+}
+.sidebar a[data-nav]:hover { background: var(--surface-2); color: var(--text-primary); text-decoration: none; }
+.sidebar a[data-nav][aria-current="page"] {
+  background: color-mix(in oklab, var(--accent) 14%, var(--surface-1));
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.sidebar a[data-nav][aria-current="page"] .ico { color: var(--accent); }
+.sidebar .ico { width: 16px; text-align: center; font-size: 12px; color: var(--text-muted); flex: 0 0 auto; }
+.sidebar .label { flex: 1 1 auto; }
+.nav-sep { height: 1px; margin: 10px 11px; background: var(--grid); }
+
+.nav-badge {
+  min-width: 19px; padding: 0 6px;
+  font-size: 11px; font-weight: 700; text-align: center; line-height: 18px;
+  color: #fff; background: var(--critical);
+  border-radius: 999px;
+}
+.nav-count { font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+.sidebar-foot {
+  margin-top: auto;
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 11px;
+  font-size: 11.5px;
+}
+
+.app-view { flex: 1 1 auto; min-width: 0; padding: 22px 24px 48px; }
+.app-view:focus-visible { outline: none; }
+
+/* page header inside a view */
+.page-head {
+  display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.page-head h1 { font-size: 22px; }
+.page-head p { margin-top: 4px; font-size: 13px; color: var(--text-muted); }
+.page-head .spacer { flex: 1 1 auto; }
+
+/* narrow screens: sidebar collapses to a drawer */
+.only-narrow { display: none; }
+
+@media (max-width: 860px) {
+  .only-narrow { display: inline-flex; }
+  .sidebar {
+    position: fixed; top: var(--topbar-h); left: 0; z-index: 25;
+    box-shadow: var(--shadow-3);
+    transform: translateX(-100%);
+    transition: transform .16s ease;
+  }
+  .sidebar[data-open="true"] { transform: none; }
+  .app-view { padding: 18px 16px 44px; }
+  .topbar .chip.who { display: none; }
+}
+
+@media (max-width: 620px) {
+  .topbar #btn-pause, .topbar #btn-theme { display: none; }
+}

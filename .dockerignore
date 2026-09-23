@@ -1,0 +1,44 @@
+# Keep secrets and local state out of the image.
+#
+# The first entry is the important one: jupiter_code/.env holds a live database
+# URL and LLM key. Secrets reach the container as environment variables set by
+# the Worker, never baked into a layer.
+.env
+.env.*
+!.env.example
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+.venv/
+venv/
+env/
+
+# Local SQLite databases - the deployment uses Postgres.
+*.db
+*.db-wal
+*.db-shm
+.jupiter/
+
+# Node / Cloudflare tooling: not needed inside the Python image.
+node_modules/
+worker/
+wrangler.jsonc
+wrangler.toml
+package.json
+package-lock.json
+.wrangler/
+
+.git/
+.gitignore
+.idea/
+.vscode/
+.DS_Store
+.pytest_cache/
+.coverage
+htmlcov/
+docs/
