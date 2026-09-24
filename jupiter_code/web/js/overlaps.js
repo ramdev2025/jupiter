@@ -28,7 +28,7 @@ const MARKUP = `
   <ul class="overlap-list" data-list></ul>
 
   <p class="empty" data-empty hidden>
-    <span class="eico" aria-hidden="true">&#8776;</span>
+    <span class="eico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-git-merge"/></svg></span>
     <span>No related work detected across different files.</span>
   </p>
 
@@ -64,7 +64,7 @@ export function createOverlapsCard() {
       list.append(el("li", {}, [
         el("div", { class: "overlap-top" }, [
           el("span", { class: "badge", attrs: { "data-state": "overlap" } }, [
-            el("span", { class: "ico", text: "≈", attrs: { "aria-hidden": "true" } }),
+            el("span", { html: '<svg class="ico" aria-hidden="true"><use href="#ico-git-merge"/></svg>', attrs: { "aria-hidden": "true" } }),
             el("span", { text: "possible overlap" }),
           ]),
           el("span", { class: "overlap-conf", text: `${item.confidence} confidence` }),

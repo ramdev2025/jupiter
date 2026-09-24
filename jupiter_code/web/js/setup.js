@@ -45,7 +45,7 @@ export function paintStepper() {
   steps.forEach((step, i) => {
     const done = i < at, cur = i === at;
     rail.append(el("li", { attrs: { "data-state": done ? "done" : cur ? "current" : "todo" } }, [
-      el("span", { class: "num", text: done ? "\u2713" : String(i + 1) }),
+      el("span", { class: "num", html: done ? '<svg class="ico" aria-hidden="true"><use href="#ico-check"/></svg>' : String(i + 1) }),
       el("span", { class: "step-label", text: step.label }),
     ]));
   });
@@ -80,19 +80,19 @@ export function welcome(host) {
       </div>
       <ul class="feature-list">
         <li>
-          <span class="fico" aria-hidden="true">&#9670;</span>
+          <span class="fico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-file-text"/></svg></span>
           <span><strong>Advisory file claims</strong>
           <span class="fdesc">Claude declares intent before editing and is told who else is
             there. Nothing is ever blocked - claims expire on their own.</span></span>
         </li>
         <li>
-          <span class="fico" aria-hidden="true">&#9679;</span>
+          <span class="fico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-team"/></svg></span>
           <span><strong>Live team presence</strong>
           <span class="fdesc">Who is online, which files they hold, and how long the claim
             has left before it lapses.</span></span>
         </li>
         <li>
-          <span class="fico" aria-hidden="true">&#9650;</span>
+          <span class="fico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-alert-triangle"/></svg></span>
           <span><strong>Conflict warnings</strong>
           <span class="fdesc">Two readers never collide. The moment someone starts editing a
             file you hold, you hear about it.</span></span>
@@ -123,13 +123,13 @@ export function choose(host) {
       </div>
       <div class="choice-grid">
         <button class="choice" data-act="create">
-          <span class="cico" aria-hidden="true">&#10010;</span>
+          <span class="cico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-plus-circle"/></svg></span>
           <strong>Create a new team</strong>
           <span class="cdesc">You are setting Jupiter up for the first time. You will get
             an org admin key, then add yourself as the first member.</span>
         </button>
         <button class="choice" data-act="join">
-          <span class="cico" aria-hidden="true">&#8594;</span>
+          <span class="cico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
           <strong>Join an existing team</strong>
           <span class="cdesc">A teammate already runs this server and gave you the team
             slug. You will get your own member key.</span>
@@ -358,7 +358,7 @@ export function connectClaude(host) {
               <span>Waiting for your first check-in…</span>
             </div>
             <div class="waiting" data-found hidden>
-              <span style="color:var(--good)" aria-hidden="true">&#10003;</span>
+              <svg class="ico" aria-hidden="true" style="width:1.5em;height:1.5em;color:var(--good)"><use href="#ico-check-circle"/></svg>
               <span><strong>Claude Code checked in.</strong> You are all set.</span>
             </div>
           </div>
@@ -408,7 +408,7 @@ export function done(host) {
   const node = panel(`
     <div class="panel">
       <div class="hero">
-        <div style="font-size:34px;color:var(--good);line-height:1" aria-hidden="true">&#10003;</div>
+        <div style="font-size:34px;color:var(--good);line-height:1" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-check-circle"/></svg></div>
         <h1 style="margin-top:12px">You're set up</h1>
         <p class="tagline" data-sub></p>
       </div>

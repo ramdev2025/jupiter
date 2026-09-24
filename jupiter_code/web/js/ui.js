@@ -2,11 +2,16 @@
 
 import { $, el, show } from "./dom.js";
 
-const ICONS = { good: "✓", warning: "⚠", critical: "⚠", info: "ℹ" };
+const ICONS = {
+  good:     `<svg class="ico" aria-hidden="true"><use href="#ico-check"/></svg>`,
+  warning:  `<svg class="ico" aria-hidden="true"><use href="#ico-alert-triangle"/></svg>`,
+  critical: `<svg class="ico" aria-hidden="true"><use href="#ico-alert-circle"/></svg>`,
+  info:     `<svg class="ico" aria-hidden="true"><use href="#ico-info"/></svg>`,
+};
 
 export function toast(kind, message, ms = 6000) {
   const node = el("div", { class: "toast", attrs: { "data-kind": kind, role: "status" } }, [
-    el("span", { class: "ico", text: ICONS[kind] || ICONS.info, attrs: { "aria-hidden": "true" } }),
+    el("span", { class: "ico", html: ICONS[kind] || ICONS.info, attrs: { "aria-hidden": "true" } }),
     el("span", { class: "msg", text: message }),
   ]);
   $("toasts").append(node);

@@ -28,7 +28,7 @@ const MARKUP = `
     <tbody></tbody>
   </table>
   <p class="empty" data-empty hidden>
-    <span class="eico" aria-hidden="true">○</span>
+    <span class="eico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-inbox"/></svg></span>
     <span data-empty-text>Nobody is holding a file right now.</span>
   </p>
 </div>`;
@@ -74,7 +74,7 @@ function buildRow(key, showActions) {
   const note = el("div", { class: "note" });
   const withWho = el("div", { class: "conflict-with" });
   const overlap = el("div", { class: "row-overlap" }, [
-    el("span", { class: "ico", text: "≈", attrs: { "aria-hidden": "true" } }),
+    el("span", { html: '<svg class="ico" aria-hidden="true"><use href="#ico-git-merge"/></svg>' }),
     el("span", {}),
   ]);
 
@@ -143,7 +143,11 @@ function updateRow(tr, lock, showActions, onRelease) {
 
   const st = contested ? "conflict" : lock.intent;
   r.badge.dataset.state = st;
-  r.ico.textContent = st === "conflict" ? "⚠" : st === "editing" ? "✎" : "○";
+  r.ico.innerHTML = st === "conflict"
+    ? '<svg class="ico" aria-hidden="true"><use href="#ico-alert-triangle"/></svg>'
+    : st === "editing"
+    ? '<svg class="ico" aria-hidden="true"><use href="#ico-pencil"/></svg>'
+    : '<svg class="ico" aria-hidden="true"><use href="#ico-eye"/></svg>';
   r.label.textContent = st === "conflict" ? `conflict · ${lock.intent}` : lock.intent;
 
   // Releasing only works for claims held by *this* session: the server scopes

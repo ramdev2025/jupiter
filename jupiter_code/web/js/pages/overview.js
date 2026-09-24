@@ -24,7 +24,7 @@ const MARKUP = `
   </div>
 
   <div class="banner" data-banner hidden>
-    <span class="bico" aria-hidden="true">&#9888;</span>
+    <svg class="ico bico" aria-hidden="true"><use href="#ico-alert-triangle"/></svg>
     <div>
       <strong data-banner-title></strong>
       <div class="btext" data-banner-text></div>
@@ -81,7 +81,7 @@ const MARKUP = `
         </div>
         <ul class="team" data-mine></ul>
         <p class="empty" data-mine-empty hidden>
-          <span class="eico" aria-hidden="true">&#9633;</span>
+          <span class="eico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-inbox"/></svg></span>
           You are not holding any file.
         </p>
       </section>
@@ -94,7 +94,7 @@ const MARKUP = `
         </div>
         <ul class="feed" data-feed></ul>
         <p class="empty" data-feed-empty hidden>
-          <span class="eico" aria-hidden="true">&#9650;</span>
+          <span class="eico" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#ico-bell"/></svg></span>
           Nothing announced in the last hour.
         </p>
       </section>

@@ -45,7 +45,7 @@ const MARKUP = `
   </section>
 
   <div class="banner" data-ro hidden data-kind="info">
-    <span class="bico" aria-hidden="true">&#9432;</span>
+    <svg class="ico bico" aria-hidden="true"><use href="#ico-info"/></svg>
     <div>
       <strong>Read-only view</strong>
       <div class="btext">You are connected with an org admin key. Claiming and releasing

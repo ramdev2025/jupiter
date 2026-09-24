@@ -395,6 +395,17 @@ ul.feed li:last-child { border-bottom: 0; }
   white-space: nowrap;
 }
 
+/* ---- SVG icon sizing ------------------------------------------------ */
+
+svg.ico, .ico > svg {
+  display: inline-block; width: 1em; height: 1em;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  vertical-align: -.125em; overflow: visible;
+}
+.eico > svg { width: 1.4em; height: 1.4em; }
+.fico > svg { width: 16px; height: 16px; }
+
 /* ---- waiting indicator (setup: waiting for first check-in) ---------- */
 
 .waiting { display: flex; align-items: center; gap: 11px; font-size: 13px; color: var(--text-secondary); }
