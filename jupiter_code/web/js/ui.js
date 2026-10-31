@@ -1,4 +1,4 @@
-/* Toasts, desktop notifications, the shared tooltip, and the theme toggle. */
+/* Toasts, desktop notifications, the shared tooltip, and appearance notifications. */
 
 import { $, el, show } from "./dom.js";
 
@@ -48,25 +48,9 @@ export function showTip(ev, text) {
 
 export function hideTip() { show($("tip"), false); }
 
-/* ---- theme ---------------------------------------------------------- */
-
-const THEME_KEY = "jupiter.theme";
-const listeners = new Set();
-
-export function currentTheme() {
-  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
-}
-
-export function toggleTheme() {
-  const next = currentTheme() === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = next;
-  localStorage.setItem(THEME_KEY, next);
-  for (const fn of listeners) fn(next);
-  return next;
-}
-
-/** Re-run when the theme changes - canvas/SVG strokes read themed tokens. */
+/* Redraw canvas visualizations when the system appearance changes. */
 export function onThemeChange(fn) {
-  listeners.add(fn);
-  return () => listeners.delete(fn);
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+  media.addEventListener("change", fn);
+  return () => media.removeEventListener("change", fn);
 }

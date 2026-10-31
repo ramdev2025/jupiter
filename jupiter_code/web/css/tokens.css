@@ -1,94 +1,29 @@
-/* Design tokens.
- *
- * Colour roles come from a validated palette: one blue sequential ramp for
- * magnitude (expiry meters, trend lines) and the reserved four-role status
- * palette for state. Status hexes are fixed and never themed; only the
- * surfaces and ink swap between modes.
- *
- * Dark is a separately chosen set stepped for the dark surface, not an
- * inversion of light. Declared under two scopes: the media query follows the
- * OS, the attribute follows the in-app toggle, and the toggle wins either way.
- */
-
+/* Shared colors follow the operating system appearance. */
 :root {
   color-scheme: light;
-
-  --page:            #f9f9f7;
-  --surface-1:       #fcfcfb;
-  --surface-2:       #f0efec;
-  --surface-3:       #e8e7e2;
-  --text-primary:    #0b0b0b;
-  --text-secondary:  #52514e;
-  --text-muted:      #898781;
-  --grid:            #e1e0d9;
-  --baseline:        #c3c2b7;
-  --border:          rgba(11, 11, 11, .10);
-  --shadow-1:        0 1px 2px rgba(11, 11, 11, .05);
-  --shadow-2:        0 1px 2px rgba(11, 11, 11, .05), 0 8px 24px rgba(11, 11, 11, .06);
-  --shadow-3:        0 2px 4px rgba(11, 11, 11, .06), 0 18px 48px rgba(11, 11, 11, .10);
-
-  /* sequential ramp: blue, light -> dark */
-  --accent:          #2a78d6;
-  --accent-strong:   #1c5cab;
-  --accent-quiet:    #86b6ef;
-  --accent-wash:     #cde2fb;
-
-  /* status palette - fixed in both modes, never themed */
-  --good:            #0ca30c;
-  --warning:         #fab219;
-  --critical:        #d03b3b;
-
-  --radius:   12px;
-  --radius-s: 7px;
-  --radius-l: 18px;
-
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
-
-  --topbar-h: 54px;
-  --sidebar-w: 216px;
+  --page: #fafafa; --surface-1: #fff; --surface-2: #f4f4f5; --surface-3: #f0f0f1;
+  --text-primary: #09090b; --text-secondary: #3f3f46; --text-muted: #52525b;
+  --grid: #e4e4e7; --baseline: #d4d4d8; --border: #e4e4e7;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / .04);
+  --shadow-2: 0 1px 3px rgb(0 0 0 / .06), 0 4px 12px -2px rgb(0 0 0 / .04);
+  --shadow-3: 0 8px 30px rgb(0 0 0 / .12);
+  --accent: #2563eb; --accent-strong: #1d4ed8; --accent-quiet: #93c5fd; --accent-wash: #eff6ff;
+  --good: #059669; --warning: #d97706; --critical: #dc2626;
+  --radius: 12px; --radius-s: 8px; --radius-l: 16px;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --sans: "Inter", system-ui, sans-serif;
+  --topbar-h: 54px; --sidebar-w: 216px;
 }
-
 @media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme="light"])) {
+  :root {
     color-scheme: dark;
-    --page:           #0d0d0d;
-    --surface-1:      #1a1a19;
-    --surface-2:      #212120;
-    --surface-3:      #2a2a28;
-    --text-primary:   #ffffff;
-    --text-secondary: #c3c2b7;
-    --text-muted:     #898781;
-    --grid:           #2c2c2a;
-    --baseline:       #383835;
-    --border:         rgba(255, 255, 255, .10);
-    --shadow-1:       0 1px 2px rgba(0, 0, 0, .4);
-    --shadow-2:       0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .34);
-    --shadow-3:       0 2px 4px rgba(0, 0, 0, .5), 0 18px 48px rgba(0, 0, 0, .45);
-    --accent:         #3987e5;
-    --accent-strong:  #6da7ec;
-    --accent-quiet:   #184f95;
-    --accent-wash:    #0d366b;
+    --page: #09090b; --surface-1: #111113; --surface-2: #1a1a1d; --surface-3: #050506;
+    --text-primary: #fafafa; --text-secondary: #d4d4d8; --text-muted: #a1a1aa;
+    --grid: #1f1f23; --baseline: #2e2e33; --border: #1f1f23;
+    --shadow-1: 0 1px 2px rgb(0 0 0 / .5);
+    --shadow-2: 0 4px 12px rgb(0 0 0 / .5);
+    --shadow-3: 0 8px 30px rgb(0 0 0 / .6);
+    --accent: #3b82f6; --accent-strong: #60a5fa; --accent-quiet: #1d4ed8; --accent-wash: rgb(59 130 246 / .12);
+    --good: #10b981; --warning: #f59e0b; --critical: #f87171;
   }
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --page:           #0d0d0d;
-  --surface-1:      #1a1a19;
-  --surface-2:      #212120;
-  --surface-3:      #2a2a28;
-  --text-primary:   #ffffff;
-  --text-secondary: #c3c2b7;
-  --text-muted:     #898781;
-  --grid:           #2c2c2a;
-  --baseline:       #383835;
-  --border:         rgba(255, 255, 255, .10);
-  --shadow-1:       0 1px 2px rgba(0, 0, 0, .4);
-  --shadow-2:       0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .34);
-  --shadow-3:       0 2px 4px rgba(0, 0, 0, .5), 0 18px 48px rgba(0, 0, 0, .45);
-  --accent:         #3987e5;
-  --accent-strong:  #6da7ec;
-  --accent-quiet:   #184f95;
-  --accent-wash:    #0d366b;
 }

@@ -3,7 +3,7 @@
 import { frag, show, wireCopyButtons } from "../dom.js";
 import { fmtTtl, fmtAgo, parseTs } from "../format.js";
 import { mcpCommand } from "../api.js";
-import { toast, requestNotifyPermission, currentTheme, toggleTheme } from "../ui.js";
+import { toast, requestNotifyPermission } from "../ui.js";
 import { go } from "../router.js";
 import { beginJoinFlow } from "../setup.js";
 import * as store from "../store.js";
@@ -109,11 +109,7 @@ const MARKUP = `
             <button class="subtle" type="button" data-act="savedir">Save directory</button>
           </div>
 
-          <div class="btn-row" style="border-top:1px solid var(--grid); padding-top:16px">
-            <span class="hint" style="flex:1 1 auto">Appearance is currently
-              <strong data-theme></strong>.</span>
-            <button class="subtle" type="button" data-act="theme">Switch</button>
-          </div>
+
         </div>
       </section>
 
@@ -196,11 +192,6 @@ export function mount(host) {
     toast("good", "Working directory saved.");
   };
 
-  q("[data-act=theme]").onclick = () => {
-    toggleTheme();
-    q("[data-theme]").textContent = currentTheme();
-  };
-
   q("[data-act=invite]").onclick = () => {
     beginJoinFlow(store.state.slug);
     go("/setup/join");
@@ -224,7 +215,6 @@ export function mount(host) {
     q("[data-session]").textContent = s.sessionId == null
       ? "none - the dashboard registers one only when you claim a file"
       : `#${s.sessionId} \u00b7 ${store.releasableLocks().length} claim(s) held here`;
-    q("[data-theme]").textContent = currentTheme();
     paintKey();
 
     const sem = s.semantic || {};

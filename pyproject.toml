@@ -42,6 +42,18 @@ jupiter-mcp = "jupiter_code.mcp_server:main"
 Homepage = "https://github.com/your-org/jupiter-code"
 Issues = "https://github.com/your-org/jupiter-code/issues"
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Every test coroutine is a real async test; opting in per-test adds nothing.
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+  "slow: concurrency, load and soak runs against a real uvicorn subprocess",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning:passlib.*",
+]
+
 [tool.setuptools]
 packages = ["jupiter_code"]
 

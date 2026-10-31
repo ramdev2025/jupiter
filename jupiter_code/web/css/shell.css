@@ -160,8 +160,7 @@
   display: flex; align-items: center; gap: 10px;
   height: var(--topbar-h);
   padding: 0 16px;
-  background: color-mix(in oklab, var(--surface-1) 88%, transparent);
-  backdrop-filter: blur(8px);
+  background: var(--surface-1);
   border-bottom: 1px solid var(--border);
 }
 
@@ -186,8 +185,8 @@
 }
 .sidebar a[data-nav]:hover { background: var(--surface-2); color: var(--text-primary); text-decoration: none; }
 .sidebar a[data-nav][aria-current="page"] {
-  background: color-mix(in oklab, var(--accent) 14%, var(--surface-1));
-  color: var(--text-primary);
+  background: var(--accent-wash);
+  color: var(--accent);
   font-weight: 600;
 }
 .sidebar a[data-nav][aria-current="page"] .ico { color: var(--accent); }
@@ -198,7 +197,7 @@
 .nav-badge {
   min-width: 19px; padding: 0 6px;
   font-size: 11px; font-weight: 700; text-align: center; line-height: 18px;
-  color: #fff; background: var(--critical);
+  color: var(--text-secondary); background: var(--surface-2);
   border-radius: 999px;
 }
 .nav-count { font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
@@ -239,5 +238,5 @@
 }
 
 @media (max-width: 620px) {
-  .topbar #btn-pause, .topbar #btn-theme { display: none; }
+  .topbar #btn-pause { display: none; }
 }

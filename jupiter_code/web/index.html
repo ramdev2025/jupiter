@@ -10,11 +10,9 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/shell.css">
 <link rel="stylesheet" href="css/components.css">
-<script>
-  // Stamp the theme before first paint so there is no flash. Dark is default.
-  document.documentElement.dataset.theme =
-    localStorage.getItem("jupiter.theme") || "dark";
-</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -52,7 +50,6 @@
       <a class="brand" href="#/welcome">
         <span class="brand-dot" aria-hidden="true"></span>Jupiter
       </a>
-      <button class="ghost" id="setup-theme" title="Toggle light / dark">Theme</button>
     </header>
 
     <ol class="stepper" id="stepper" aria-label="Setup progress" hidden></ol>
@@ -83,7 +80,6 @@
     </span>
     <button class="ghost" id="btn-pause" aria-pressed="false"
             title="Pause / resume polling">Pause</button>
-    <button class="ghost" id="btn-theme" title="Toggle light / dark">Theme</button>
     <span class="chip who" id="chip-me"></span>
   </header>
 

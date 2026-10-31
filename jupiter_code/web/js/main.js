@@ -3,7 +3,7 @@
 import { $, show } from "./dom.js";
 import { api } from "./api.js";
 import { define, setGuard, start, go } from "./router.js";
-import { toast, toggleTheme } from "./ui.js";
+import { toast } from "./ui.js";
 import * as store from "./store.js";
 import * as setup from "./setup.js";
 
@@ -108,10 +108,6 @@ function wireChrome() {
     btn.setAttribute("aria-pressed", String(next));
     btn.textContent = next ? "Resume" : "Pause";
   });
-
-  for (const id of ["btn-theme", "setup-theme"]) {
-    $(id).addEventListener("click", () => toggleTheme());
-  }
 
   $("btn-nav").addEventListener("click", () => {
     const open = $("sidebar").dataset.open !== "true";
